@@ -51,14 +51,14 @@ class CoreDataManager {
         }
     }
     
-    // 新規エントリー追加
-    func addEntry(content: String, mood: String, colorHex: String) -> DiaryEntryEntity? {
+    // 新規エントリー追加（日付指定可能）
+    func addEntry(content: String, mood: String, colorHex: String, date: Date = Date()) -> DiaryEntryEntity? {
         let context = persistenceController.container.viewContext
         let newEntry = DiaryEntryEntity(context: context)
         
         newEntry.id = UUID()
         newEntry.content = content
-        newEntry.date = Date()
+        newEntry.date = date
         newEntry.mood = mood
         newEntry.colorHex = colorHex
         newEntry.createdAt = Date()

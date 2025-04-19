@@ -5,6 +5,7 @@ class EntryViewModel: ObservableObject {
     @Published var content: String = ""
     @Published var selectedMood: String = "neutral"
     @Published var selectedColorHex: String = AppColors.cardColors[0]
+    @Published var selectedDate: Date = Date()
     @Published var errorMessage: String? = nil
     @Published var isSaving: Bool = false
     
@@ -27,12 +28,17 @@ class EntryViewModel: ObservableObject {
         ]
     }
     
-    init(entry: DiaryEntryEntity? = nil) {
+    init(entry: DiaryEntryEntity? = nil, date: Date? = nil) {
         if let entry = entry {
             self.editingEntry = entry
             self.content = entry.content ?? ""
             self.selectedMood = entry.mood ?? "neutral"
             self.selectedColorHex = entry.colorHex ?? AppColors.cardColors[0]
+            if let entryDate = entry.date {
+                self.selectedDate = entryDate
+            }
+        } else if let date = date {
+            self.selectedDate = date
         }
     }
     
@@ -59,11 +65,12 @@ class EntryViewModel: ObservableObject {
                 return false
             }
         } else {
-            // 新規エントリの作成
+            // 新規エントリの作成（指定日付で）
             let newEntry = coreDataManager.addEntry(
                 content: content,
                 mood: selectedMood,
-                colorHex: selectedColorHex
+                colorHex: selectedColorHex,
+                date: selectedDate
             )
             
             if newEntry == nil {

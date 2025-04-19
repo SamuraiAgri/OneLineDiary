@@ -21,6 +21,11 @@ struct ContentView: View {
                     Label(AppStrings.Navigation.home, systemImage: "house.fill")
                 }
             
+            CalendarView()
+                .tabItem {
+                    Label(AppStrings.Navigation.calendar, systemImage: "calendar")
+                }
+            
             SettingsView()
                 .tabItem {
                     Label(AppStrings.Navigation.settings, systemImage: "gear")

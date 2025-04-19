@@ -8,6 +8,7 @@ struct AppStrings {
     // ナビゲーション
     struct Navigation {
         static let home = "ホーム"
+        static let calendar = "カレンダー"
         static let newEntry = "新規作成"
         static let settings = "設定"
         static let search = "検索"
@@ -51,6 +52,13 @@ struct AppStrings {
         static let title = "検索"
         static let placeholder = "日記を検索..."
         static let noResults = "該当する日記が見つかりませんでした"
+    }
+    
+    // カレンダー画面
+    struct Calendar {
+        static let title = "カレンダー"
+        static let noEntry = "この日の日記はありません"
+        static let addNew = "新規作成"
     }
     
     // 気分/感情

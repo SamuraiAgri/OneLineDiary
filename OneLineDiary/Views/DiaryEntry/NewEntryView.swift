@@ -2,10 +2,15 @@ import SwiftUI
 
 struct NewEntryView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var viewModel = EntryViewModel()
+    @StateObject private var viewModel: EntryViewModel
     @State private var showingAlert = false
     
     var onDismiss: () -> Void
+    
+    init(initialDate: Date? = nil, onDismiss: @escaping () -> Void) {
+        self.onDismiss = onDismiss
+        self._viewModel = StateObject(wrappedValue: EntryViewModel(date: initialDate))
+    }
     
     var body: some View {
         NavigationView {
@@ -56,7 +61,7 @@ struct NewEntryView: View {
     // 日記本文入力エリア
     private var contentInputView: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(Date().formattedString())
+            Text(viewModel.selectedDate.formattedString())
                 .font(AppFonts.caption)
                 .foregroundColor(AppColors.textTertiary)
             
