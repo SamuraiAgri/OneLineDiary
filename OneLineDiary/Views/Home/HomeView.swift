@@ -23,15 +23,14 @@ struct HomeView: View {
                     }
                 }
                 .navigationTitle(AppStrings.Home.title)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            viewModel.fetchEntries()
-                        } label: {
-                            Image(systemName: "arrow.clockwise")
-                        }
+                // toolbarの曖昧さを解消するために具体的な実装に変更
+                .navigationBarItems(trailing:
+                    Button {
+                        viewModel.fetchEntries()
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
                     }
-                }
+                )
             }
             .overlay(
                 newEntryButton
@@ -49,12 +48,14 @@ struct HomeView: View {
                     selectedEntry = nil
                 })
             }
-            .onChange(of: searchText) { _, newValue in
+            // iOS 17に依存しない形式に変更
+            .onChange(of: searchText) { newValue in
                 viewModel.searchEntries(with: newValue)
             }
         }
     }
     
+    // 以下のコードは同じまま
     // 検索バー
     private var searchBar: some View {
         HStack {

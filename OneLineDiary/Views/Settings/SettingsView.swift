@@ -13,6 +13,7 @@ struct SettingsView: View {
                     // リマインダーセクション
                     Section(header: Text(AppStrings.Settings.reminderSection)) {
                         Toggle(AppStrings.Settings.reminderToggle, isOn: $viewModel.isReminderEnabled)
+                            // iOS 17未満向けの形式に戻す
                             .onChange(of: viewModel.isReminderEnabled) { newValue in
                                 viewModel.saveReminderSettings()
                             }
@@ -23,6 +24,7 @@ struct SettingsView: View {
                                 selection: $viewModel.reminderTime,
                                 displayedComponents: .hourAndMinute
                             )
+                            // iOS 17未満向けの形式に戻す
                             .onChange(of: viewModel.reminderTime) { newValue in
                                 viewModel.saveReminderSettings()
                             }
